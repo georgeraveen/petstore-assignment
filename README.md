@@ -90,6 +90,11 @@ Delete pet by ID
 
     curl --location --request DELETE 'localhost:8080/v1/pet-types/1' 
 
+## Test Suites
+Test suites are available in test/java/org/acme/
+
+    PetResourceTest.java
+    PetTypeResourceTest.java
 
 ## Deploying Application
 
