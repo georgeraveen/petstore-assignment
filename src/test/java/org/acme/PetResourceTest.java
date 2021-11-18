@@ -4,6 +4,9 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.jose4j.json.internal.json_simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
+import javax.json.Json;
+import javax.ws.rs.core.MediaType;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasEntry;
@@ -15,39 +18,31 @@ public class PetResourceTest {
 
     @Test
     public void testPetCreate() {
-        JSONObject requestParams = new JSONObject();
-        requestParams.put("pet_name", "Virender");
-        given()
-                .when().post("http://localhost:8080/v1/pets/add",requestParams)
+        given().contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .body(Json.createObjectBuilder()
+                        .add("pet_type","Dog")
+                        .add("pet_age",11)
+                        .add("pet_name","Black")
+                        .build().toString())
+                .when().post("http://localhost:8080/v1/pets/add")
                 .then()
                 .statusCode(200);
-//                .body(hasItem("petId"));
-//             .body(hasItem(
-// 		            allOf(
-//    		                hasEntry("petId", "2")
-////    		                hasEntry("pet_type", "Dog"),
-////    		                hasEntry("pet_name", "Boola"),
-////    		                hasEntry("pet_age", "3")
-//    		            )
-//    		      )
-//    		 );
+        given().contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .body(Json.createObjectBuilder()
+                        .add("pet_type","Cat")
+                        .add("pet_age",9)
+                        .add("pet_name","White")
+                        .build().toString())
+                .when().post("http://localhost:8080/v1/pets/add")
+                .then()
+                .statusCode(200);
     }
     @Test
     public void testPetGetById() {
         given()
                 .when().get("http://localhost:8080/v1/pets/1")
                 .then()
-                .statusCode(200)
-                .body(hasItem("petId"));
-//             .body(hasItem(
-// 		            allOf(
-//    		                hasEntry("petId", "2")
-////    		                hasEntry("pet_type", "Dog"),
-////    		                hasEntry("pet_name", "Boola"),
-////    		                hasEntry("pet_age", "3")
-//    		            )
-//    		      )
-//    		 );
+                .statusCode(200);
     }
 	@Test
     public void testPetGetByName() {
@@ -72,7 +67,13 @@ public class PetResourceTest {
     }
     @Test
     public void testPetUpdate() {
-        given()
+        given().contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .body(Json.createObjectBuilder()
+                        .add("pet_type","Parrot")
+                        .add("pet_age",2)
+                        .add("pet_name","Green")
+                        .add("pet_id","1")
+                        .build().toString())
                 .when().put("http://localhost:8080/v1/pets/update")
                 .then()
                 .statusCode(200);
