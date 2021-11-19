@@ -106,7 +106,13 @@ Create docker image
 
     ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
 
+Run image
+
+    docker run -i --rm -p 8080:8080 georg/petstore:unspecified
+
 Deploy on docker compose
 
     cd deploy
     docker-compose up -d
+
+View dashboard at  http://localhost:3000/dashboards
