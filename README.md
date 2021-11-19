@@ -102,4 +102,11 @@ Run
 
 ## Deploying Application
 
-To deploy the demo app on a docker-compose please visit [./deploy](https://github.com/rasika/petstore/tree/master/deploy)
+Create docker image
+
+    ./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true
+
+Deploy on docker compose
+
+    cd deploy
+    docker-compose up -d

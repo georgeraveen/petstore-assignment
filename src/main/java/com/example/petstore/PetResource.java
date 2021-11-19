@@ -18,7 +18,18 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @Produces("application/json")
 public class PetResource {
 
-	List<Pet> pets = new ArrayList<Pet>();
+
+	List<Pet> pets = new ArrayList<Pet>(){
+		{
+
+			Pet pet1 = new Pet();
+			pet1.setPetId(1);
+			pet1.setPetAge(11);
+			pet1.setPetName("Black");
+			pet1.setPetType("Dog");
+			add(pet1);
+		}
+	};
 
 
 	@APIResponses(value = {
@@ -26,6 +37,7 @@ public class PetResource {
 	@GET
 	@Path("get-sample")
 	public Response getSamplePets() {
+
 		Pet pet1 = new Pet();
 		pet1.setPetId(1);
 		pet1.setPetAge(3);
