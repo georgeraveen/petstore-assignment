@@ -1,10 +1,12 @@
 package org.acme;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.http.ContentType;
 import org.jose4j.json.internal.json_simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import javax.json.Json;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.core.MediaType;
 
 import static io.restassured.RestAssured.given;
@@ -14,18 +16,16 @@ import static org.hamcrest.Matchers.hasItem;
 public class PetTypeResourceTest {
 
     @Test
-    public void testPetCreate() {
+    public void testPetTypeCreate() {
 
         given().contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(Json.createObjectBuilder()
-                        .add("pet_type","Dog")
-                        .build().toString())
+                        .formParam("pet_type","Dog")
                 .when().post("http://localhost:8080/v1/pet-types/add")
                 .then()
                 .statusCode(200);
     }
     @Test
-    public void testPetGetById() {
+    public void testPetTypeGetById() {
         given()
                 .when().get("http://localhost:8080/v1/pet-types/1")
                 .then()
@@ -33,18 +33,16 @@ public class PetTypeResourceTest {
     }
 
     @Test
-    public void testPetUpdate() {
+    public void testPetTypeUpdate() {
         given().contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(Json.createObjectBuilder()
-                        .add("pet_type","Cat")
-                        .add("petType_id",1)
-                        .build().toString())
+                .formParam("petType_type","Cat")
+                .formParam("petType_id",1)
                 .when().put("http://localhost:8080/v1/pet-types/update")
                 .then()
                 .statusCode(200);
     }
     @Test
-    public void testPetDelete() {
+    public void testPetTypeDelete() {
         given()
                 .when().delete("http://localhost:8080/v1/pet-types/1")
                 .then()

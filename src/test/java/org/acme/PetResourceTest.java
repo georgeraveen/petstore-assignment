@@ -19,20 +19,16 @@ public class PetResourceTest {
     @Test
     public void testPetCreate() {
         given().contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(Json.createObjectBuilder()
-                        .add("pet_type","Dog")
-                        .add("pet_age",11)
-                        .add("pet_name","Black")
-                        .build().toString())
+                        .formParam("pet_type","Dog")
+                        .formParam("pet_age",11)
+                        .formParam("pet_name","Black")
                 .when().post("http://localhost:8080/v1/pets/add")
                 .then()
                 .statusCode(200);
         given().contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(Json.createObjectBuilder()
-                        .add("pet_type","Cat")
-                        .add("pet_age",9)
-                        .add("pet_name","White")
-                        .build().toString())
+                        .formParam("pet_type","Cat")
+                        .formParam("pet_age",9)
+                        .formParam("pet_name","White")
                 .when().post("http://localhost:8080/v1/pets/add")
                 .then()
                 .statusCode(200);
@@ -68,12 +64,10 @@ public class PetResourceTest {
     @Test
     public void testPetUpdate() {
         given().contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .body(Json.createObjectBuilder()
-                        .add("pet_type","Parrot")
-                        .add("pet_age",2)
-                        .add("pet_name","Green")
-                        .add("pet_id","1")
-                        .build().toString())
+                        .formParam("pet_type","Parrot")
+                        .formParam("pet_age",2)
+                        .formParam("pet_name","Green")
+                        .formParam("pet_id","1")
                 .when().put("http://localhost:8080/v1/pets/update")
                 .then()
                 .statusCode(200);
