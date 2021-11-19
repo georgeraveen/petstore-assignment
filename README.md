@@ -96,6 +96,10 @@ Test suites are available in test/java/org/acme/
     PetResourceTest.java
     PetTypeResourceTest.java
 
+Run
+
+    ./gradlew test
+
 ## Deploying Application
 
 To deploy the demo app on a docker-compose please visit [./deploy](https://github.com/rasika/petstore/tree/master/deploy)
